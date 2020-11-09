@@ -1,21 +1,60 @@
+.main-container {
+    background: map-get($foundation-palette, "secondary");
+    max-width: 40%;
+    transform: translateY(50%);
+    min-height: 50vh;
+    padding: 2rem 1rem;
+}
+
 ul {
     list-style-type: none;
+    margin: 1rem 0.25rem 0;
+}
+
+li {
+    font-size: 1.5rem;
+    font-family: "Poppins", sans-serif;
+    color: $white;
+}
+
+button:hover {
+    cursor: pointer;
+    filter: brightness(75%);
+}
+
+#text-input {
+    max-width: 70%;
+}
+
+#text-input, #add {
+    display: inline;
+    margin: 0;
 }
 
 .check:after,
 .uncheck:after,
 .remove:after {
     font-family: "Font Awesome 5 Pro";
+    color: $white;
 }
 
 .check:after {
     content: "\f058";
+    padding-right: 1rem;
+    color: map-get($foundation-palette, "success");
 }
 
 .uncheck:after {
     content: "\f111";
+    padding-right: 1rem;
 }
 
 .remove:after {
     content: "\f00d";
+    padding-left: 1rem;
+
+    &:hover {
+        filter: brightness(50%);
+        transition: filter .2s ease-in-out;
+    }
 }
