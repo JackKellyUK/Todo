@@ -1,0 +1,97 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <link rel="stylesheet" href="css/app.css">
+  </head>
+  <!doctype html>
+  <body>
+
+      <input type="text" id="text-input">
+      <button class="button" id="add">Add to list</button>
+
+      <ul id="list">
+
+      </ul>
+
+      <style>
+          label {
+              display: block;
+          }
+      </style> 
+
+      <script>
+
+          function ToDo (input, add, list) {
+            this.todoInput = document.getElementById(input);
+            this.todoAdd = document.getElementById(add);
+            this.todoList = document.getElementById(list);
+
+            this.todos = [];
+            this._init();
+          }
+
+          ToDo.prototype._init = function () {
+            this.todoAdd.addEventListener("click",this.addTodo.bind(this));
+          };
+
+          ToDo.prototype.addTodo = function () {
+            var value = this.todoInput.value;
+            
+            if (value && value.trim()) {
+              this.todos.push(value);
+              this.todoInput.value = "";
+              this.render();
+            }
+          };
+
+          ToDo.prototype.removeItem = function (i) {
+            this.todos.splice(i, 1);
+
+            this.render();
+          }
+
+          ToDo.prototype.render = function () {
+            this.todoList.innerHTML = "";
+            for (var i = 0; i < this.todos.length; i++) {
+              this.listItem = document.createElement('li');
+
+              this.check = document.createElement('button');
+              this.check.classList.add("uncheck");
+              this.check.addEventListener("click",this.switchOperator);
+
+              this.remove = document.createElement('button');
+              this.remove.classList.add("remove");
+              this.remove.addEventListener("click",this.removeItem.bind(this, i));
+
+              this.listItem.appendChild(this.check);
+              this.listItem.appendChild(document.createTextNode(this.todos[i]));
+              this.listItem.appendChild(this.remove);
+              this.todoList.appendChild(this.listItem);
+            }
+          }
+
+          ToDo.prototype.switchOperator = function () {
+
+            if (this.className == "check") {
+              this.classList.remove("check");
+              this.classList.add("uncheck");
+            } else {
+              this.classList.add("check");
+              this.classList.remove("uncheck");
+            }
+          }
+
+          new ToDo('text-input', 'add', 'list');
+
+
+      </script>
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+    <script src="node_modules/what-input/dist/what-input.js"></script>
+    <script src="node_modules/foundation-sites/dist/js/foundation.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

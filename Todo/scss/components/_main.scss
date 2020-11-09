@@ -1,0 +1,21 @@
+ul {
+    list-style-type: none;
+}
+
+.check:after,
+.uncheck:after,
+.remove:after {
+    font-family: "Font Awesome 5 Pro";
+}
+
+.check:after {
+    content: "\f058";
+}
+
+.uncheck:after {
+    content: "\f111";
+}
+
+.remove:after {
+    content: "\f00d";
+}
