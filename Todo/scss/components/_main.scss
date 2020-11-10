@@ -1,9 +1,20 @@
 .main-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.input-container {
+    display: flex;
+}
+
+.list-container {
     background: map-get($foundation-palette, "secondary");
-    max-width: 40%;
-    transform: translateY(50%);
-    min-height: 50vh;
-    padding: 2rem 1rem;
+    min-width: 40%;
+    min-height: 60%;
+    padding: 2rem 1.5rem;
 }
 
 ul {
@@ -13,8 +24,13 @@ ul {
 
 li {
     font-size: 1.5rem;
-    font-family: "Poppins", sans-serif;
     color: $white;
+    word-break: break-all;
+}
+
+hr {
+    margin: 0.5rem 0;
+    border-color: map-get($foundation-palette, "primary");
 }
 
 button:hover {
@@ -23,12 +39,16 @@ button:hover {
 }
 
 #text-input {
-    max-width: 70%;
+    max-width: 95%;
 }
 
 #text-input, #add {
     display: inline;
     margin: 0;
+}
+
+#add {
+    color: map-get($foundation-palette, "success");
 }
 
 .check:after,
@@ -49,12 +69,17 @@ button:hover {
     padding-right: 1rem;
 }
 
-.remove:after {
-    content: "\f00d";
-    padding-left: 1rem;
+.remove {
+    float: right;
+    padding: 0.5rem 0;
 
-    &:hover {
-        filter: brightness(50%);
-        transition: filter .2s ease-in-out;
+    &:after {
+        content: "\f00d";
+        padding-left: 1rem;
+
+        &:hover {
+            filter: brightness(50%);
+            transition: filter .2s ease-in-out;
+        }
     }
 }

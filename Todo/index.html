@@ -10,12 +10,16 @@
   <!doctype html>
   <body>
 
-      <div class="main-container grid-container">
-        <input type="text" id="text-input">
-        <button class="button" id="add"><i class="fas fa-plus"></i></button>
-  
-        <ul id="list">
-        </ul>
+      <div class="main-container">
+        <div class="list-container">
+          <div class="input-container">
+            <input type="text" id="text-input">
+            <button class="button" id="add"><i class="fas fa-plus"></i></button>
+          </div>
+    
+          <ul id="list">
+          </ul>
+        </div>
       </div>
 
       <script>
@@ -37,7 +41,7 @@
             var value = this.todoInput.value;
             
             if (value && value.trim()) {
-              this.todos.push(value);
+              this.todos.push([value, false]);
               this.todoInput.value = "";
               this.render();
             }
@@ -51,33 +55,41 @@
 
           ToDo.prototype.render = function () {
             this.todoList.innerHTML = "";
-            for (var i = 0; i < this.todos.length; i++) {
+            var len = this.todos.length;
+            for (var i = 0; i < len; i++) {
               this.listItem = document.createElement('li');
 
               this.check = document.createElement('button');
               this.check.classList.add("uncheck");
-              this.check.addEventListener("click",this.switchOperator);
+              this.check.addEventListener("click",this.switchOperator.bind(this, i));
 
               this.remove = document.createElement('button');
               this.remove.classList.add("remove");
               this.remove.addEventListener("click",this.removeItem.bind(this, i));
 
               this.listItem.appendChild(this.check);
-              this.listItem.appendChild(document.createTextNode(this.todos[i]));
+              this.listItem.appendChild(document.createTextNode(this.todos[i][0]));
               this.listItem.appendChild(this.remove);
+
+              if (i < len - 1) {
+                this.hr = document.createElement('hr');
+                this.listItem.appendChild(this.hr);
+              }
+
               this.todoList.appendChild(this.listItem);
+
+              this.check.classList = "";
+              if (this.todos[i][1]) {
+                this.check.classList.add("check");
+              } else {
+                this.check.classList.add("uncheck");
+              }
             }
           }
 
-          ToDo.prototype.switchOperator = function () {
-
-            if (this.className == "check") {
-              this.classList.remove("check");
-              this.classList.add("uncheck");
-            } else {
-              this.classList.add("check");
-              this.classList.remove("uncheck");
-            }
+          ToDo.prototype.switchOperator = function (i) {
+            this.todos[i][1] = !this.todos[i][1];
+            this.render();
           }
 
           new ToDo('text-input', 'add', 'list');
