@@ -39,9 +39,13 @@
 
           ToDo.prototype.addTodo = function () {
             var value = this.todoInput.value;
+            var item = {};
             
             if (value && value.trim()) {
-              this.todos.push([value, false]);
+              item.value = value.trim();
+              item.checked = false;
+
+              this.todos.push(item);
               this.todoInput.value = "";
               this.render();
             }
@@ -57,38 +61,33 @@
             this.todoList.innerHTML = "";
             var len = this.todos.length;
             for (var i = 0; i < len; i++) {
-              this.listItem = document.createElement('li');
+              var listItem = document.createElement('li');
 
-              this.check = document.createElement('button');
-              this.check.classList.add("uncheck");
-              this.check.addEventListener("click",this.switchOperator.bind(this, i));
+              var check = document.createElement('button');
+              check.classList.add("uncheck");
+              check.addEventListener("click",this.switchOperator.bind(this, i));
 
-              this.remove = document.createElement('button');
-              this.remove.classList.add("remove");
-              this.remove.addEventListener("click",this.removeItem.bind(this, i));
+              var remove = document.createElement('button');
+              remove.classList.add("remove");
+              remove.addEventListener("click",this.removeItem.bind(this, i));
 
-              this.listItem.appendChild(this.check);
-              this.listItem.appendChild(document.createTextNode(this.todos[i][0]));
-              this.listItem.appendChild(this.remove);
+              listItem.appendChild(check);
+              listItem.appendChild(document.createTextNode(this.todos[i].value));
+              listItem.appendChild(remove);
 
-              if (i < len - 1) {
-                this.hr = document.createElement('hr');
-                this.listItem.appendChild(this.hr);
-              }
+              this.todoList.appendChild(listItem);
 
-              this.todoList.appendChild(this.listItem);
-
-              this.check.classList = "";
-              if (this.todos[i][1]) {
-                this.check.classList.add("check");
+              check.classList = "";
+              if (this.todos[i].checked) {
+                check.classList.add("check");
               } else {
-                this.check.classList.add("uncheck");
+                check.classList.add("uncheck");
               }
             }
           }
 
           ToDo.prototype.switchOperator = function (i) {
-            this.todos[i][1] = !this.todos[i][1];
+            this.todos[i].checked = !this.todos[i].checked;
             this.render();
           }
 
