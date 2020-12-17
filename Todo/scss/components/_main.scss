@@ -33,6 +33,10 @@ hr {
     border-color: map-get($foundation-palette, "primary");
 }
 
+input[type="search"]::-webkit-search-cancel-button {
+    filter: brightness(0) invert(1);
+}
+
 button:hover {
     cursor: pointer;
     filter: brightness(75%);
@@ -71,7 +75,7 @@ button:hover {
 
 .remove {
     float: right;
-    padding: 0.5rem 0;
+    padding: 0.25rem 0;
 
     &:after {
         content: "\f00d";

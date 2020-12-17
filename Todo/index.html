@@ -12,10 +12,10 @@
 
       <div class="main-container">
         <div class="list-container">
-          <div class="input-container">
-            <input type="text" id="text-input">
-            <button class="button" id="add"><i class="fas fa-plus"></i></button>
-          </div>
+          <form class="input-container">
+            <input type="search" id="text-input">
+            <input type="submit" class="button" id="add" style="font-family: 'Font Awesome 5 Pro'" value="&#xf067;">
+          </form>
     
           <ul id="list">
           </ul>
@@ -37,7 +37,9 @@
             this.todoAdd.addEventListener("click",this.addTodo.bind(this));
           };
 
-          ToDo.prototype.addTodo = function () {
+          ToDo.prototype.addTodo = function (event) {
+            event.preventDefault();
+
             var value = this.todoInput.value;
             var item = {};
             
@@ -65,7 +67,7 @@
 
               var check = document.createElement('button');
               check.classList.add("uncheck");
-              check.addEventListener("click",this.switchOperator.bind(this, i));
+              check.addEventListener("click",this.markComplete.bind(this, i));
 
               var remove = document.createElement('button');
               remove.classList.add("remove");
@@ -86,7 +88,7 @@
             }
           }
 
-          ToDo.prototype.switchOperator = function (i) {
+          ToDo.prototype.markComplete = function (i) {
             this.todos[i].checked = !this.todos[i].checked;
             this.render();
           }
